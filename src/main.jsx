@@ -7,6 +7,10 @@ import {
   RouterProvider,
 } from "react-router";
 import Home from './Pages/Home/Home.jsx';
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+ AOS.init();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,6 +21,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
+   
     
   </StrictMode>,
 )
