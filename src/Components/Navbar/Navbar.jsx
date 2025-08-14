@@ -6,6 +6,7 @@ import Skills from "../Skills/Skills";
 import Education from "../Education/Education";
 import Projects from "../Projects/Projects";
 import Contact from "../Contact/Contact";
+import Footer from "../Footer/Footer";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,7 @@ const Navbar = () => {
     { name: "About", id: "about" },
     { name: "Skills", id: "skills" },
     { name: "Education", id: "education" },
+    {name:"Experience", id:"experience"},
     { name: "Projects", id: "projects" },
     { name: "Contact", id: "contact" },
   ];
@@ -123,6 +125,7 @@ const Navbar = () => {
       <section id="contact">
         <Contact></Contact>
       </section>
+      <Footer></Footer>
     </div>
     
   );

@@ -176,12 +176,15 @@ const Projects = () => {
       {selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl p-6 overflow-y-auto max-h-[90vh] relative">
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl font-bold"
-            >
-              ✕
+           <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-3 right-3 text-gray-600 hover:text-white bg-gray-200 hover:bg-red-500 
+                            w-10 h-10 flex items-center justify-center rounded-full shadow-md 
+                            transition-all duration-300 ease-in-out cursor-pointer"
+                >
+                ✕
             </button>
+
             <img
               src={selectedProject.image}
               alt={selectedProject.name}
