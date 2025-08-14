@@ -158,13 +158,15 @@ const Projects = () => {
                   </div>
                 </div>
                 <div className="flex justify-between gap-2 mt-4">
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-gray-800 text-white px-3 py-2 rounded-md hover:bg-gray-700 transition font-medium cursor-pointer"
-                  >
-                    <FiInfo size={18} />
-                    View Details
-                  </button>
+                 <button
+  onClick={() => setSelectedProject(project)}
+  className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-2 rounded-md hover:from-pink-500 hover:to-orange-500 transition-all duration-300 font-medium cursor-pointer shadow-md hover:shadow-lg"
+>
+  <FiInfo size={18} />
+  View Details
+</button>
+
+
                   <Link
                     to={project.liveLink}
                     //   target="_blank"
