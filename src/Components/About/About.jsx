@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col justify-center items-center bg-base-100 px-6 md:px-16"
+      className="flex flex-col justify-center items-center bg-base-100 px-6 md:px-16 py-6"
     >
       {/* Heading */}
       <h2
@@ -13,6 +13,7 @@ const About = () => {
         data-aos="fade-up"
       >
         About Me
+        <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-45 bg-blue-500 rounded"></span>
       </h2>
 
       {/* Typing Animation */}
@@ -47,9 +48,9 @@ const About = () => {
         engineering career, I have pursued my passion for web development,
         mastering technologies like React Router, Node.js, MongoDB, Firebase
         Authentication, JavaScript, Tailwind CSS, and more. With over{" "}
-        <span className="font-semibold">40 completed projects</span>, I have
+        <span className="font-semibold text-blue-500">40 completed projects</span>, I have
         grown into a dedicated{" "}
-        <span className="font-semibold">MERN stack developer</span> ready to
+        <span className="font-semibold text-blue-500">MERN stack developer</span> ready to
         create engaging and impactful web applications.
       </p>
     </section>

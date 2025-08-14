@@ -41,6 +41,7 @@ const Education = () => {
         data-aos="zoom-in"
       >
         Educational Qualification
+        <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-105 bg-blue-500 rounded"></span>
       </h2>
 
       <div className="max-w-4xl mx-auto relative">

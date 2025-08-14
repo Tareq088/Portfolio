@@ -1,22 +1,31 @@
-import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import Home from "../Home/Home";
+import React, { useState, useEffect } from "react";
+import { FaBars, FaTimes, FaDownload } from "react-icons/fa";
 import About from "../About/About";
 import Skills from "../Skills/Skills";
 import Education from "../Education/Education";
 import Projects from "../Projects/Projects";
 import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
+import Experience from "../Experience/Experience";
+import Home2 from "../Home/Home2";
+
+// ✅ ADDED: jsPDF imports
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import "jspdf-autotable";
+import profilePic from "../../assets/Profile Picture.jpg"; //
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   const navLinks = [
     { name: "Home", id: "home" },
     { name: "About", id: "about" },
     { name: "Skills", id: "skills" },
     { name: "Education", id: "education" },
-    {name:"Experience", id:"experience"},
+    { name: "Experience", id: "experience" },
     { name: "Projects", id: "projects" },
     { name: "Contact", id: "contact" },
   ];
@@ -25,16 +34,100 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(id);
     }
-    setIsOpen(false); // close mobile menu
+    setIsOpen(false);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200;
+      navLinks.forEach((link) => {
+        const section = document.getElementById(link.id);
+        if (
+          section &&
+          section.offsetTop <= scrollPosition &&
+          section.offsetTop + section.offsetHeight > scrollPosition
+        ) {
+          setActiveSection(link.id);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // ✅ NEW FUNCTION: Generate Resume PDF
+ const handleDownloadResume = () => {
+  const doc = new jsPDF();
+
+  // Profile Image
+  doc.addImage(profilePic, "JPEG", 15, 10, 30, 30);
+
+  // Name & Title
+  doc.setFontSize(18);
+  doc.text("Tareq Rahman", 50, 20);
+  doc.setFontSize(12);
+  doc.text("Assistant Engineer | Web Developer", 50, 28);
+
+  // Contact Info
+  doc.setFontSize(10);
+  doc.text("📧 tareq@example.com | 📱 +8801XXXXXXXXX", 50, 36);
+  doc.text("📍 Khulna, Bangladesh", 50, 42);
+
+  // Education
+  doc.setFontSize(14);
+  doc.text("Education", 15, 55);
+  autoTable(doc, {
+    startY: 60,
+    head: [["Degree", "Institution", "Year"]],
+    body: [
+      ["B.Sc in EEE", "XYZ University", "2015"],
+      ["M.Sc in EEE", "ABC University", "2018"],
+    ],
+  });
+
+  // Experience
+  doc.setFontSize(14);
+  doc.text("Experience", 15, doc.lastAutoTable.finalY + 10);
+  autoTable(doc, {
+    startY: doc.lastAutoTable.finalY + 15,
+    head: [["Position", "Organization", "Duration", "Location"]],
+    body: [
+      [
+        "Assistant Engineer",
+        "Bangladesh Power Development Board",
+        "2019 - Present",
+        "Khulna 330 MW CCPP & Bera 70 MW Peaking Plant, Pabna",
+      ],
+      [
+        "Faculty Member",
+        "Northern University Bangladesh",
+        "Before 2019",
+        "Dhaka, Bangladesh",
+      ],
+    ],
+  });
+
+  // Skills
+  doc.setFontSize(14);
+  doc.text("Skills", 15, doc.lastAutoTable.finalY + 10);
+  doc.setFontSize(10);
+  doc.text(
+    "React.js, Node.js, Express.js, MongoDB, Tailwind CSS, Firebase, Git, Problem Solving",
+    15,
+    doc.lastAutoTable.finalY + 18
+  );
+
+  doc.save("Tareq_Rahman_Resume.pdf");
+};
+
 
   return (
     <div>
       <nav className="bg-base-100 shadow-md sticky top-0 w-full z-50">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          
-          {/* Logo */}
           <div
             onClick={() => handleNavClick("home")}
             className="flex items-center gap-2 cursor-pointer"
@@ -50,7 +143,11 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li
                 key={link.id}
-                className="cursor-pointer hover:text-primary transition"
+                className={`cursor-pointer transition ${
+                  activeSection === link.id
+                    ? "text-primary font-semibold"
+                    : "hover:text-primary"
+                }`}
                 onClick={() => handleNavClick(link.id)}
               >
                 {link.name}
@@ -58,16 +155,19 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Resume Button */}
+          {/* ✅ CHANGED: Resume Button now calls handleDownloadResume */}
           <div className="hidden md:block">
-            <a
-              href="/resume.pdf" // Replace with your resume link
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-sm"
+            
+            <button
+              onClick={() => {
+                handleDownloadResume();
+                setIsOpen(false);
+              }}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
-              Resume
-            </a>
+              <FaDownload className="text-lg" />
+              Download Resume
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,48 +186,58 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <li
                   key={link.id}
-                  className="cursor-pointer hover:text-primary transition"
+                  className={`cursor-pointer transition ${
+                    activeSection === link.id
+                      ? "text-primary font-semibold"
+                      : "hover:text-primary"
+                  }`}
                   onClick={() => handleNavClick(link.id)}
                 >
                   {link.name}
                 </li>
               ))}
+              {/* ✅ CHANGED: Mobile resume download */}
               <li>
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm w-full"
-                  onClick={() => setIsOpen(false)}
+                <button
+                  onClick={() => {
+                    handleDownloadResume();
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
-                  Resume
-                </a>
+                  <FaDownload className="text-lg" />
+                  Download Resume
+                </button>
               </li>
             </ul>
           </div>
         )}
       </nav>
+
+      {/* Sections */}
       <section id="home">
-        <Home></Home>
+        <Home2 />
       </section>
       <section id="about">
-        <About></About>
+        <About />
       </section>
       <section id="skills">
-        <Skills></Skills>
+        <Skills />
       </section>
       <section id="education">
-        <Education></Education>
+        <Education />
+      </section>
+      <section id="experience">
+        <Experience />
       </section>
       <section id="projects">
-        <Projects></Projects>
+        <Projects />
       </section>
       <section id="contact">
-        <Contact></Contact>
+        <Contact />
       </section>
-      <Footer></Footer>
+      <Footer />
     </div>
-    
   );
 };
 

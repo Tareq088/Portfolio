@@ -34,11 +34,11 @@ const Skills = () => {
     <div id="skills" className="bg-gray-50 dark:bg-gray-900 py-12 px-4">
       {/* Heading */}
       <h2
-        className="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400 relative inline-block"
+        className="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400 pb-2"
         data-aos="zoom-in"
       >
         Skills and Technologies
-        <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-20 bg-blue-500 rounded"></span>
+        <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-100 bg-blue-500 rounded"></span>
       </h2>
 
       {/* Skills Grid */}

@@ -41,12 +41,12 @@ const Contact = () => {
 
 
   return (
-    <div id="contact" className="bg-gray-50 dark:bg-gray-900 py-16 px-4">
+    <div id="contact" className="bg-gray-50 dark:bg-gray-900 py-6 px-4">
       {/* Heading */}
       <div className="text-center mb-10" data-aos="zoom-in">
         <h2 className="text-4xl font-bold text-blue-600 dark:text-blue-400 relative inline-block">
           Contact Me
-          <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-20 bg-blue-500 rounded"></span>
+          <span className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 h-1 w-50 bg-blue-500 rounded"></span>
         </h2>
         <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
           Have a project idea,or any question, or just want to say hello? Fill out the
