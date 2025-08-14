@@ -116,7 +116,7 @@ const Home2 = () => {
 
         <p className="max-w-md mt-2 text-base-content">
           I build responsive, user-friendly, and modern web applications using
-          React, TailwindCSS, and the latest frontend technologies.
+          React,mongoDB, ExpressJs, NodeJs, TailwindCSS, and the latest frontend technologies.
         </p>
 
                  <button
