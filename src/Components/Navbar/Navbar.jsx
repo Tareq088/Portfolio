@@ -9,13 +9,6 @@ import Footer from "../Footer/Footer";
 import Experience from "../Experience/Experience";
 import Home2 from "../Home/Home2";
 
-// ✅ ADDED: jsPDF imports
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-import "jspdf-autotable";
-import profilePic from "../../assets/Profile Picture.jpg"; //
-
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -57,73 +50,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // ✅ NEW FUNCTION: Generate Resume PDF
- const handleDownloadResume = () => {
-  const doc = new jsPDF();
-
-  // Profile Image
-  doc.addImage(profilePic, "JPEG", 15, 10, 30, 30);
-
-  // Name & Title
-  doc.setFontSize(18);
-  doc.text("Tareq Rahman", 50, 20);
-  doc.setFontSize(12);
-  doc.text("Assistant Engineer | Web Developer", 50, 28);
-
-  // Contact Info
-  doc.setFontSize(10);
-  doc.text("📧 tareq@example.com | 📱 +8801XXXXXXXXX", 50, 36);
-  doc.text("📍 Khulna, Bangladesh", 50, 42);
-
-  // Education
-  doc.setFontSize(14);
-  doc.text("Education", 15, 55);
-  autoTable(doc, {
-    startY: 60,
-    head: [["Degree", "Institution", "Year"]],
-    body: [
-      ["B.Sc in EEE", "XYZ University", "2015"],
-      ["M.Sc in EEE", "ABC University", "2018"],
-    ],
-  });
-
-  // Experience
-  doc.setFontSize(14);
-  doc.text("Experience", 15, doc.lastAutoTable.finalY + 10);
-  autoTable(doc, {
-    startY: doc.lastAutoTable.finalY + 15,
-    head: [["Position", "Organization", "Duration", "Location"]],
-    body: [
-      [
-        "Assistant Engineer",
-        "Bangladesh Power Development Board",
-        "2019 - Present",
-        "Khulna 330 MW CCPP & Bera 70 MW Peaking Plant, Pabna",
-      ],
-      [
-        "Faculty Member",
-        "Northern University Bangladesh",
-        "Before 2019",
-        "Dhaka, Bangladesh",
-      ],
-    ],
-  });
-
-  // Skills
-  doc.setFontSize(14);
-  doc.text("Skills", 15, doc.lastAutoTable.finalY + 10);
-  doc.setFontSize(10);
-  doc.text(
-    "React.js, Node.js, Express.js, MongoDB, Tailwind CSS, Firebase, Git, Problem Solving",
-    15,
-    doc.lastAutoTable.finalY + 18
-  );
-
-  doc.save("Tareq_Rahman_Resume.pdf");
-};
-
-
   return (
     <div>
       <nav className="bg-base-100 shadow-md sticky top-0 w-full z-50">
@@ -157,17 +83,14 @@ const Navbar = () => {
 
           {/* ✅ CHANGED: Resume Button now calls handleDownloadResume */}
           <div className="hidden md:block">
-            
-            <button
-              onClick={() => {
-                handleDownloadResume();
-                setIsOpen(false);
-              }}
-              className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+             <a
+              href="/Tareq Rahman Resume.pdf"
+              download
+              className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               <FaDownload className="text-lg" />
               Download Resume
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -198,16 +121,14 @@ const Navbar = () => {
               ))}
               {/* ✅ CHANGED: Mobile resume download */}
               <li>
-                <button
-                  onClick={() => {
-                    handleDownloadResume();
-                    setIsOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                <a
+                  href="/Tareq Rahman Resume.pdf"
+                  download
+                  className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-blue-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer"
                 >
                   <FaDownload className="text-lg" />
                   Download Resume
-                </button>
+                </a>
               </li>
             </ul>
           </div>
